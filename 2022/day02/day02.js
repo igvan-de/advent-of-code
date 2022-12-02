@@ -32,12 +32,44 @@ async function day02() {
         return scores[handPlayed];
     }
 
-    data.forEach(game => {
-        console.log({
-            elf: game[0],
-            you: game[1]
-        });
+    const manipulateGameWinner = (game) => {
+        if (game[1] == 'X') {
+            if (game[0] == 'A') {
+                return 'Z'; 
+            }
+            if (game[0] == 'B') {
+                return 'X';
+            }
+            if (game[0] == 'C') {
+                return 'Y';
+            }
+        }
+        if (game[1] == 'Y') {
+            if (game[0] == 'A') {
+                return 'X';
+            }
+            if (game[0] == 'B') {
+                return 'Y';
+            }
+            if (game[0] == 'C') {
+                return 'Z'; 
+            }
+        }
+        if (game[1] == 'Z') {
+            if (game[0] == 'A') {
+                return 'Y';
+            }
+            if (game[0] == 'B') {
+                return 'Z'; 
+            }
+            if (game[0] == 'C') {
+                return 'X';
+            }
+            
+        }
+    };
 
+    const getGameWinner = (game) => {
         if (game[0] == 'A' && game[1] == 'X' 
         || game[0] == 'B' && game[1] == 'Y'
         || game[0] == 'C' && game[1] == 'Z') {
@@ -56,7 +88,11 @@ async function day02() {
             yourTotal = results.loss + yourTotal + getScore(game[1]);
             console.log('lose');
         }
+    };
 
+    data.forEach(game => {
+        game[1] = manipulateGameWinner(game);
+        getGameWinner(game);
     });
 
     console.log(yourTotal);
